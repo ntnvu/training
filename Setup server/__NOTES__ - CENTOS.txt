@@ -1,0 +1,32 @@
+-------------------------------------------------- VIM --------------------------------------------------
+move to last line : `:$ Enter`
+-------------------------------------------------- BASIC --------------------------------------------------
+# Copy file:
+cp -R /etc/squid/squid.conf /etc/squid/squid.conf.bk
+# Create folder
+mkdir foldername
+# Create file
+vi namefile.ext
+:wq
+# Stop Apache
+systemctl stop httpd
+# Start Apache
+systemctl start httpd
+# Remove folder
+rm -rf mydir
+# Remove file (don't add / behind)
+rm myfile 
+# Shutdown
+shutdown -h now
+# Search folder
+find . -name working
+# View log
+tail -f laravel-2017-10-25.log
+-------------------------------------------------- ZIP --------------------------------------------------
+zip -r filename.zip files
+unzip filename.zip
+-------------------------------------------------- SYSTEMCTL --------------------------------------------------
+start/stop/enable/disable
+
+-------------------------------------------------- CURRENT LOCATION --------------------------------------------------
+pwd

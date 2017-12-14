@@ -1,0 +1,217 @@
+-------------------------------------------------- EPEL - Extra Packages for Enterprise Linux --------------------------------------------------
+#Provides lots of open source packages to install via Yum.
+#It does not provide any core duplicate packages and no compatibility issues.
+#All epel packages are maintained by Fedora repo.
+
+-------------------------------------------------- Expanding the scope of the VPN --------------------------------------------------
+# to include additional machines on either the client or server subnet.
+
+# server-side LAN uses a subnet of 10.66.0.0/24
+# the VPN IP address pool uses 10.8.0.0/24 as cited in the server directive in the OpenVPN server configuration file
+# advertise the 10.66.0.0/24 subnet to VPN clients as being accessible through the VPN : push "route 10.66.0.0 255.255.255.0"
+
+-------------------------------------------------- NAT - Network Address Translation --------------------------------------------------
+# NAT translates the IP addresses of computers in a local network to a single IP address
+# This address is often used by the router that connects the computers to the Internet
+# Once a system from outside the network has been allowed to access a computer within the network, the IP address is then translated from the router's address to the computer's unique address
+# The address is found in a "NAT table" that defines the internal IP addresses of computers on the network
+# Even though each computer withi n the local network has a specific IP address, external systems can only see one IP address when connecting to any of the computers within the network
+# To simplify, network address translation makes computers outside the local area network (LAN) see only one IP address, while computers within the network can see each system's unique address
+
+-------------------------------------------------- Bridging vs. routing --------------------------------------------------
+
+-------------------------------------------------- Network Adapters --------------------------------------------------
+
+-------------------------------------------------- VPN IP-address pool --------------------------------------------------
+# Each client that connects is assigned a temporary IP address on the target network, which might be a local network inside a campus
+# The VPN server is given a pool of addresses that it can use for this purpose
+
+-------------------------------------------------- Subnet - Subnetworks --------------------------------------------------
+# IP subnetting is a method for dividing a single, physical network into smaller subnetworks, or subnets for short.
+# This is accomplished by manipulating the 32-bits available in an IPv4 address, which can be divided into two parts: a network ID and a host ID
+# The number of bits you assign to the network ID allows for either a greater number of total subnetworks or more hosts
+# Class A (255.0.0.0) B (255.255.0.0) C (255.255.255.0)
+
+-------------------------------------------------- Subnetmask --------------------------------------------------
+# Each class of IP address has its own default subnet mask
+# A subnet mask defines which chunk of an IP address is the host ID and which portion is the subnet network ID
+# A subnet mask works like a filter with the mask identifying the IP address bits that represent the network ID with a 1, and the bits that represent the host ID with a 0, Example: C (11111111.11111111.11111111.00000000 - /24)
+
+-------------------------------------------------- NCP - NetWare Core Protocol --------------------------------------------------
+# is the file-sharing protocol between server and client(s) on a Novell NetWare network
+
+-------------------------------------------------- CYPHER --------------------------------------------------
+# A cipher suite is a collection of symmetric and asymmetric encryption algorithms used by hosts to establish a secure communication
+
+-------------------------------------------------- SSL and TLS --------------------------------------------------
+# TLS (Transport Layer Security) 
+# SSL (Secure Sockets Layer)
+http://www.techradar.com/news/software/how-ssl-and-tls-works-1047412
+
+-------------------------------------------------- TCP/UDP --------------------------------------------------
+# https://vpnreviewer.com/tcp-vpn-vs-udp-vpn
+# 
+
+-------------------------------------------------- MTU - Maximum transmission unit --------------------------------------------------
+
+# Is a term used in data networking and refers to the maximum size of a single data unit that can be transmitted across a specified medium
+# For example, the MTU of Ethernet, is 1500 bytes, means a single Ethernet frame cannot be larger than 1500 bytes.
+# The host will never send a packet that is too large to transmit over any given part of the path between source and destination and it will thus never be fragmented
+# Computer —– Ethernet Jumbo Frames (8000 bytes) —–> Router —– Ethernet v2 (1500 bytes) —–> ADSL Modem —– PPPoA (1492 bytes) —–> ISP Router —– Ethernet v2 (1500 bytes) —–> Server
+
+-------------------------------------------------- VPN SETUP COMMAND --------------------------------------------------
+
+yum install epel-release -y
+yum install vim -y
+yum install openvpn easy-rsa -y 
+cp /usr/share/doc/openvpn-*/sample/sample-config-files/server.conf /etc/openvpn
+
+cp /etc/openvpn/server.conf /etc/openvpn/server.conf.backup
+vim /etc/openvpn/server.conf
+diff /etc/openvpn/server.conf /etc/openvpn/server.conf.backup
+...
+< port 1111
+---
+> port 1194
+35,36c35,36
+< proto tcp
+< ;proto udp
+---
+> ;proto tcp
+> proto udp
+53c53
+< dev tun0
+---
+> dev tun
+92c92
+< topology subnet
+---
+> ;topology subnet
+101,102c101
+<
+< server 192.168.250.0 255.255.255.0
+---
+> server 10.8.0.0 255.255.255.0
+193c192
+< push "redirect-gateway def1"
+---
+> ;push "redirect-gateway def1 bypass-dhcp"
+201c200
+< push "dhcp-option DNS 8.8.8.8"
+---
+> ;push "dhcp-option DNS 208.67.222.222"
+223c222
+< duplicate-cn
+---
+> ;duplicate-cn
+245c244
+< ;tls-auth ta.key 0 # This file is secret
+---
+> tls-auth ta.key 0 # This file is secret
+258,259c257,258
+< compress lz4-v2
+< push "compress lz4-v2"
+---
+> ;compress lz4-v2
+> ;push "compress lz4-v2"
+275,276c274,275
+< user nobody
+< group nobody
+---
+> ;user nobody
+> ;group nobody
+316,323c315
+< #explicit-exit-notify 1
+<
+< log-append  /var/log/openvpn.log
+< ncp-disable
+< tls-cipher TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256
+< cipher AES-128-CBC
+< link-mtu 1470
+<
+---
+> explicit-exit-notify 1
+\ No newline at end of file
+...
+-------------------------------------------------- Generating OpenVPN keys using Easy RSA --------------------------------------------------
+mkdir -p /etc/openvpn/easy-rsa/keys
+cp -rf /usr/share/easy-rsa/2.0/* /etc/openvpn/easy-rsa/
+
+cp /etc/openvpn/easy-rsa/vars /etc/openvpn/easy-rsa/vars.backup
+vim /etc/openvpn/easy-rsa/vars
+diff /etc/openvpn/easy-rsa/vars /etc/openvpn/easy-rsa/vars.backup
+...
+72c72
+< export KEY_NAME="server"
+---
+> export KEY_NAME="EasyRSA"
+80c80
+< export KEY_CN="Server Name"
+---
+> # export KEY_CN="CommonName"
+...
+
+cp /etc/openvpn/easy-rsa/openssl-1.0.0.cnf /etc/openvpn/easy-rsa/openssl.cnf
+cd /etc/openvpn/easy-rsa/
+source ./vars
+./clean-all
+./build-ca
+./build-key-server server
+./build-dh
+./build-key client
+
+cd /etc/openvpn/
+openvpn --genkey --secret ta.key
+
+cd /etc/openvpn/easy-rsa/keys/
+cp dh2048.pem ca.crt server.crt server.key /etc/openvpn
+
+systemctl enable openvpn@server.service
+systemctl start openvpn@server.service
+
+systemctl restart openvpn@server.service
+
+systemctl stop openvpn@server.service
+systemctl disable openvpn@server.service
+-------------------------------------------------- OPEN PORT CENTOS --------------------------------------------------
+firewall-cmd --list-all-zones | more
+firewall-cmd --get-active-zones
+
+firewall-cmd --zone=public --permanent --add-port=1111/tcp
+firewall-cmd --complete-reload
+
+firewall-cmd --zone=public --permanent --remove-port=1111/tcp
+firewall-cmd --complete-reload
+
+firewall-cmd --zone=public --permanent --add-masquerade 
+firewall-cmd --complete-reload
+
+-------------------------------------------------- Enable IP Forwarding --------------------------------------------------
+sysctl net.ipv4.ip_forward
+cp /etc/sysctl.conf /etc/sysctl.conf.backup
+vi /etc/sysctl.conf
+diff /etc/sysctl.conf /etc/sysctl.conf.backup
+...
+15d14
+< net.ipv4.ip_forward = 1
+...
+sysctl --system
+sysctl net.ipv4.ip_forward
+-------------------------------------------------- Windows Openvpn Client --------------------------------------------------
+https://openvpn.net/index.php/open-source/downloads.html
+
+
+-------------------------------------------------- Masquerade --------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+

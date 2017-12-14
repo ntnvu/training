@@ -1,0 +1,62 @@
+https://sherdle.com/help/introduction/
+
+#Item Purchase Code:
+c7824693-2628-48c0-9fdd-8e56ac5e8140
+
+#Upload config.json to Server
+#Open D:\project-nhat\Exness_trader\app\Template\app\src\main\java\com\sherdle\universal\Config.java
+public static final String CONFIG_URL = "http://welearnit.net:10080/public/app/config.json";
+
+-------------------------------------------------- APP COMPONENT --------------------------------------------------
+
+
+-------------------------------------------------- THE CONTENT RESOLVER --------------------------------------------------
+
+
+-------------------------------------------------- THE MANIFEST FILE --------------------------------------------------
+
+# User Permission
+
+-------------------------------------------------- Guide to App Architecture --------------------------------------------------
+
+
+-------------------------------------------------- Android Activity --------------------------------------------------
+
+https://www.raywenderlich.com/165824/introduction-android-activities-kotlin
+Activities are where all the action happens, because they are the screens that allow the user to interact with your app.
+
+1. The process for creating, starting and stopping an activity, and how to handle navigation between activities.
+
+--------------------- activity lifecycle ---------------------
+
+--------------------- ConstraintLayout ---------------------
+
+2. The various stages in the lifecycle of an activity and how to handle each stage gracefully.
+
+3. The way to manage configuration changes and persist data within your activity.
+
+-------------------------------------------------- RecyclerView --------------------------------------------------
+
+https://www.raywenderlich.com/126528/android-recyclerview-tutorial
+
+1. The purpose of a RecyclerView
+2. The components that make up a RecyclerView
+3. How to change the layout of a RecyclerView
+4. How to add some nice animations to your RecyclerView
+
+-------------------------------------------------- Android Intent --------------------------------------------------
+https://www.raywenderlich.com/160019/android-intents-tutorial-2
+
+
+
+-------------------------------------------------- Android Fragments --------------------------------------------------
+
+https://www.raywenderlich.com/169885/android-fragments-tutorial-introduction-2
+
+# A fragment is an Android component that holds part of the behavior and/or UI of an activity
+
+1. How to create and add fragments to an activity.
+
+2. How to let your fragments send information to an activity.
+
+3. How to add and replace fragments by using transactions.

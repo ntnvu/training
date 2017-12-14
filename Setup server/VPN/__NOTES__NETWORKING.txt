@@ -1,0 +1,8 @@
+# Gateway is Router
+# Gateway Id is Router Id
+
+-------------------------------------------------- DHCP --------------------------------------------------
+# NAT can’t function without PAT when using shared public IP addresses
+# A router will have at least two network cards (NICs)
+
+-------------------------------------------------- Dynamic Routing --------------------------------------------------
