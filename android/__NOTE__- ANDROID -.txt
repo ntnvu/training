@@ -41,6 +41,16 @@ https://www.raywenderlich.com/126528/android-recyclerview-tutorial
 
 1. The purpose of a RecyclerView
 2. The components that make up a RecyclerView
+
+- we have imageRequester and layoutManager
+- recycleView is what we use to show list of Image
+- set recycleView.layoutManager and recycleView.adapter
+- recycleView.adapter get from RecyclerAdapter, what RecyclerAdapter need is array list of Photo, means photosList
+- a RecyclerAdapter contain ViewHolder be called PhotoHolder (Obj), ViewHolder need a View Layout
+- View Layout get declaration from "recyclerview_item_row.xml"
+- View Layout will show the photo sent to it.
+
+
 3. How to change the layout of a RecyclerView
 4. How to add some nice animations to your RecyclerView
 
