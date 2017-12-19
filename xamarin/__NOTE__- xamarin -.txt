@@ -1,0 +1,7 @@
+https://blog.xamarin.com/demystifying-build-configurations/?utm_medium=social&utm_campaign=blog&utm_source=facebook&utm_content=build-configurations
+
+https://github.com/Microsoft/SmartHotel360
+
+https://blog.xamarin.com/introducing-smarthotel360-reference-mobile-apps/?utm_medium=social&utm_campaign=blog&utm_content=smarthotel360-reference-apps
+
+https://github.com/Microsoft/SmartHotel360-mobile-desktop-apps
